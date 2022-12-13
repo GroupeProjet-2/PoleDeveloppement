@@ -395,21 +395,27 @@
         }
     } // Fin classe Utilisateur
 
-     $utilisateur = new Utilisateur(
-        "tplanche001",
+     $tom_montbord = new Utilisateur(
+        "tmontbord",
         "Tom",
-        "Planche",
-        "tplanche001@icloud.com",
-        "12345",
+        "Montbord",
+        "tmontbord@iutbayonne.univ-pau.fr",
+        "Pikatchu197",
         1,
         1,
         2
     );
 
-    $test = new Utilisateur("tata");
-    $test2 = new Utilisateur("titi@gmail.com");
+    $mathis_heriveau = new Utilisateur(
+        "mheriveau",
+        "Mathis",
+        "Hériveau",
+        "mheriveau@iutbayonne.univ-pau.fr",
+        "Pikatchu197",
+        1,
+        1,
+        2
+    );
 
-    echo $test->getMail();
-    echo $test2->getLogin();
-
-    $utilisateur->insererDansBd();
+    $tom_montbord->insererDansBd();
+    $mathis_heriveau->insererDansBd();
