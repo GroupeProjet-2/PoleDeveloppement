@@ -99,3 +99,9 @@ CREATE TABLE contenir (
     CONSTRAINT FK_QUESTION_CONTENIR FOREIGN KEY (ID_QUESTION) REFERENCES QUESTION(ID),
     CONSTRAINT FK_DEPOT_CONTENIR FOREIGN KEY (ID_DEPOT) REFERENCES DEPOT(ID)
 );
+
+insert into TYPE (LABEL) values ('Choix unique');
+insert into TYPE (LABEL) values ('Choix multiple');
+insert into TYPE (LABEL) values ('Texte');
+insert into TYPE (LABEL) values ('FlashCard');
+
