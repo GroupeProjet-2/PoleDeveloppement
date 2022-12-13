@@ -38,11 +38,35 @@ echo str_dump($_SESSION);
 
     $_SESSION['arbre'] = $arbre;
 
-    # récupération des questions
-    $requete = "SELECT QUESTION.ID, QUESTION.ENONCE, QUESTION.TYPE, QUESTION.DIFFICULTE FROM QUESTION WHERE QUESTION.ID_QCM = ".$_POST['id_qcm'];
+    # récupération des questions avec des tags dans l'objet arbre
+    $requete = "SELECT ID, LABEL, ETAT, TYPE FROM QUESTION
+                WHERE ID IN (SELECT ID_QUESTION FROM composer WHERE ID_QCM = ".$_POST['id_qcm'].")";
     $stmt = $db->prepare($requete);
     $stmt->execute();
-    $questions = $stmt->fetchAll(); // tableau de questions (tableau associatif)
+    $questionsUtiles = $stmt->fetchAll(); // tableau de questions (tableau associatif)
 
-    # récupération des tags associés aux questions
-    $requete = "SELECT "
+    # ajout des questions dans la banque de questions
+    $banqueQuestions = array(); // tableau des questions de la bd (objet Question)
+    foreach ($questionsUtiles as $question){
+        $banqueQuestions[] = new Question($question['ID'], $question['LABEL'], $question['TYPE'], $question['ETAT']);
+    }
+
+    # ajout des réponses aux questions
+    foreach ($banqueQuestions as $question){
+        $stmt = $db->prepare("SELECT ID, LABEL, IS_CORRECT FROM REPONSE WHERE ID_QUESTION = ".$question->getId());
+        $stmt->execute();
+        $reponses = $stmt->fetchAll(); // tableau de réponses (tableau associatif)
+        foreach ($reponses as $reponse) {
+            $question->addReponse(new Reponse($reponse['ID'], $reponse['LABEL'], $reponse['IS_CORRECT']));
+        }
+    }
+
+    # ajout des tags aux questions
+    foreach ($banqueQuestions as $question){
+        $stmt = $db->prepare("SELECT LABEL_TAG FROM lier_tag_question WHERE ID_QUESTION = ".$question->getId());
+        $stmt->execute();
+        $tags = $stmt->fetchAll(); // tableau de tags (tableau associatif)
+        foreach ($tags as $tag) {
+            $question->addTag($tag['LABEL_TAG']);
+        }
+    }
