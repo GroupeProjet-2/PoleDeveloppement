@@ -2,6 +2,7 @@
 
     include("../BD/connexion_bd.php");
 
+    require("../utils.php");
 
     /**
      * Utilisateur est une classe représentant un utilisateur.
@@ -13,14 +14,18 @@
      *    - de mettre à jour les informations d'un utilisateur dans la base de données.
      *    - de supprimer un utilisateur de la base de données.
      *
+     * Losque l'on crée un utilisateur est crée avec un login qui est un mail ou n'a que le login en argument, on
+     * suppose que l'utilisateur existe dans la base de données. On récupère alors les informations de l'utilisateur
      */
     class Utilisateur {
         private string $login;
-        private string $firstName;
-        private string $lastName;
-        private string $mail;
-        private string $password;
-        private int $role_id;
+        private mixed $firstName;
+        private mixed $lastName;
+        private mixed $mail;
+        private mixed $password;
+        private mixed $role_id;
+        private mixed $td;
+        private mixed $tp;
 
         public function __construct(
             $login,
@@ -28,38 +33,65 @@
             $lastName = null,
             $mail = null,
             $password = null,
-            $role_id = null
+            $role_id = null,
+            $td = null,
+            $tp = null
         ) {
-            $this->login = $login;
+            $this->login = isMail($login) ? "" : $login;
             $this->firstName = $firstName;
             $this->lastName = $lastName;
-            $this->mail = $mail;
+            $this->mail = isMail($login) ? $login : $mail;
             $this->password = $password;
             $this->role_id = $role_id;
+            $this->td = $td;
+            $this->tp = $tp;
+
+            if (isMail($login) or $firstName == null) {
+                $this->recupererDepuisBD();
+            }
+
         }
 
         // GETTERS
         public function getLogin(): string {
+            if ($this->login == null) {
+                $this->recupererDepuisBD();
+            }
             return $this->login;
         }
 
         public function getFirstName(): string {
+            if ($this->firstName == null) {
+                $this->recupererDepuisBD();
+            }
             return $this->firstName;
         }
 
         public function getLastName(): string {
+            if ($this->lastName == null) {
+                $this->recupererDepuisBD();
+            }
             return $this->lastName;
         }
 
         public function getMail(): string {
+            if ($this->mail == null) {
+                $this->recupererDepuisBD();
+            }
             return $this->mail;
         }
 
         public function getPassword(): string {
+            if ($this->password == null) {
+                $this->recupererDepuisBD();
+            }
             return $this->password;
         }
 
         public function getRoleId(): int {
+            if ($this->role_id == null) {
+                $this->recupererDepuisBD();
+            }
             return $this->role_id;
         }
 
@@ -108,10 +140,12 @@
         public function estDansBD(): bool {
             global $conn_bd;
 
-            $sql = "SELECT * FROM Utilisateur WHERE USER_LOGIN = :login";
+            $sql = "SELECT * FROM Utilisateur WHERE USER_LOGIN = :login or USER_EMAIL = :mail";
 
             $stmt = $conn_bd->prepare($sql);
+
             $stmt->bindParam(':login', $this->login);
+            $stmt->bindParam(':mail', $this->mail);
             $stmt->execute();
 
             $result = $stmt->fetch();
@@ -144,29 +178,62 @@
 
             $password = hash('sha256', $password);
 
-            $sql = "INSERT INTO Utilisateur (
-                USER_LOGIN,
-                USER_FIRST_NAME,
-                USER_LAST_NAME,
-                USER_EMAIL,
-                USER_PASSWORD,
-                USER_ROLE_ID
-            ) VALUES (
-                :login,
-                :firstName,
-                :lastName,
-                :mail,
-                :password,
-                :role_id
-            )";
+            if ($role_id == 1) {
+                $sql = "INSERT INTO Utilisateur (
+                    USER_LOGIN,
+                    USER_FIRST_NAME,
+                    USER_LAST_NAME,
+                    USER_EMAIL,
+                    USER_PASSWORD,
+                    USER_ROLE_ID,
+                    USER_TD,
+                    USER_TP
+                ) VALUES (
+                    :login,
+                    :firstName,
+                    :lastName,
+                    :mail,
+                    :password,
+                    :role_id,
+                    :user_td,
+                    :user_tp
+                )";
+            } else {
+                $sql = "INSERT INTO Utilisateur (
+                    USER_LOGIN,
+                    USER_FIRST_NAME,
+                    USER_LAST_NAME,
+                    USER_EMAIL,
+                    USER_PASSWORD,
+                    USER_ROLE_ID
+                    
+                ) VALUES (
+                    :login,
+                    :firstName,
+                    :lastName,
+                    :mail,
+                    :password,
+                    :role_id
+                )";
+            }
 
             $stmt = $conn_bd->prepare($sql);
+
+
             $stmt->bindParam(':login', $login);
             $stmt->bindParam(':firstName', $firstName);
             $stmt->bindParam(':lastName', $lastName);
             $stmt->bindParam(':mail', $mail);
             $stmt->bindParam(':password', $password);
             $stmt->bindParam(':role_id', $role_id);
+
+            if ($role_id == 1) {
+                $user_td = $this->td ?? 0;
+                $user_tp = $this->tp ?? 0;
+
+                $stmt->bindParam(':user_td', $user_td);
+                $stmt->bindParam(':user_tp', $user_tp);
+            }
 
             $stmt->execute();
 
@@ -175,27 +242,6 @@
                 echo "Erreur lors de l'insertion de l'utilisateur";
                 echo $error[2];
                 return false;
-            }
-
-            if ($role_id == 1) {
-                // C'est un étudiant
-                $sql = "INSERT INTO ETUDIANT (ETUDIANT_LOGIN, TD, TP) VALUES (
-                    :login,
-                    :td,
-                    :tp
-                )";
-
-                $stmt = $conn_bd->prepare($sql);
-                $stmt->bindParam(':login', $login);
-                $stmt->bindParam(':td', $td);
-                $stmt->bindParam(':tp', $tp);
-
-                $stmt->execute();
-
-                $error = $stmt->errorInfo();
-                if ($error[0] !== '00000') {
-                    return false;
-                }
             }
 
             return true;
@@ -290,10 +336,11 @@
         private function recupererDepuisBD(): void {
             global $conn_bd;
 
-            $sql = "SELECT * FROM UTILISATEUR WHERE USER_LOGIN = :login";
+            $sql = "SELECT * FROM UTILISATEUR WHERE USER_LOGIN = :login OR USER_EMAIL = :mail";
 
             $stmt = $conn_bd->prepare($sql);
             $stmt->bindParam(':login', $this->login);
+            $stmt->bindParam(':mail', $this->mail);
             $stmt->execute();
 
             $error = $stmt->errorInfo();
@@ -312,6 +359,39 @@
             $this->mail = $result['USER_EMAIL'];
             $this->password = $result['USER_PASSWORD'];
             $this->role_id = $result['USER_ROLE_ID'];
+            $this->td = $result['USER_TD'];
+            $this->tp = $result['USER_TP'];
+        }
+
+
+        /**
+         * estEtudiant
+         *
+         * @access public
+         * @return bool - true si l'utilisateur est un étudiant, false sinon
+         */
+        public function estEtudiant(): bool {
+            return $this->role_id == 1;
+        }
+
+        /**
+         * estProfesseur
+         *
+         * @access public
+         * @return bool - true si l'utilisateur est un professeur, false sinon
+         */
+        public function estProfesseur(): bool {
+            return $this->role_id == 2;
+        }
+
+        /**
+         * estAdministrateur
+         *
+         * @access public
+         * @return bool - true si l'utilisateur est un administrateur, false sinon
+         */
+        public function estAdministrateur(): bool {
+            return $this->role_id == 3;
         }
     } // Fin classe Utilisateur
 
@@ -321,13 +401,15 @@
         "Planche",
         "tplanche001@icloud.com",
         "12345",
-        1
+        1,
+        1,
+        2
     );
 
+    $test = new Utilisateur("tata");
+    $test2 = new Utilisateur("titi@gmail.com");
 
-    // Modification du login de l'utilisateur
-    $utilisateur->setLogin("tplanche002");
-    $utilisateur->setMail("tesst@it.com");
-    $utilisateur->setFirstName("Toto");
-    $utilisateur->setLastName("Titi");
+    echo $test->getMail();
+    echo $test2->getLogin();
 
+    $utilisateur->insererDansBd();

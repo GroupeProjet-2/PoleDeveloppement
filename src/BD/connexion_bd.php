@@ -36,4 +36,15 @@
 
     }
 
+    /**
+     * setpBD
+     *
+     * !!!!! N'appeler qu'à la fin. !!!!!
+     *
+     * @return void
+     */
+    function setupBD(): void {
+        $script = file_get_contents(dirname(__FILE__).'/scripts/tables_creation.sql');
+    }
+
 
