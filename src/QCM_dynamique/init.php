@@ -53,11 +53,11 @@ echo str_dump($_SESSION);
 
     # ajout des réponses aux questions
     foreach ($banqueQuestions as $question){
-        $stmt = $db->prepare("SELECT ID, LABEL, IS_CORRECT FROM REPONSE WHERE ID_QUESTION = ".$question->getId());
+        $stmt = $db->prepare("SELECT ID, LABEL, ETAT_VERITE FROM REPONSE WHERE ID_QUESTION = ".$question->getId());
         $stmt->execute();
         $reponses = $stmt->fetchAll(); // tableau de réponses (tableau associatif)
         foreach ($reponses as $reponse) {
-            $question->addReponse(new Reponse($reponse['ID'], $reponse['LABEL'], $reponse['IS_CORRECT']));
+            $question->addReponse(new Reponse($reponse['ID'], $reponse['LABEL'], $reponse['ETAT_VERITE']));
         }
     }
 
@@ -70,3 +70,5 @@ echo str_dump($_SESSION);
             $question->addTag($tag['LABEL_TAG']);
         }
     }
+
+    $_SESSION['banqueQuestions'] = $banqueQuestions;
