@@ -121,12 +121,4 @@ class Question
         $html .= "</div>";
         return $html;
     }
-
-
-
-
-
-
-
-
 }

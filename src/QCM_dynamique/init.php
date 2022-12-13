@@ -37,3 +37,12 @@ echo str_dump($_SESSION);
     }
 
     $_SESSION['arbre'] = $arbre;
+
+    # récupération des questions
+    $requete = "SELECT QUESTION.ID, QUESTION.ENONCE, QUESTION.TYPE, QUESTION.DIFFICULTE FROM QUESTION WHERE QUESTION.ID_QCM = ".$_POST['id_qcm'];
+    $stmt = $db->prepare($requete);
+    $stmt->execute();
+    $questions = $stmt->fetchAll(); // tableau de questions (tableau associatif)
+
+    # récupération des tags associés aux questions
+    $requete = "SELECT "
