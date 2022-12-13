@@ -37,7 +37,8 @@ class Arbre
 
     public function addNiveau($niveau)
     {
-        $this->monArbre[$niveau] = array();
+        if (!array_key_exists($niveau, $this->monArbre))
+            $this->monArbre[$niveau] = array();
     }
 
     public function addTag($niveau, $tag)
