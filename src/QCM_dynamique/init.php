@@ -17,29 +17,23 @@ echo str_dump($_SESSION);
     $_SESSION['niveauActuel'] = 0;
     $_SESSION['changementNiveau'] = false;
     $_SESSION['questionsEffectuees'] = 0;
-    $_SESSION['questionsCorrectes'] = 0;
+    $_SESSION['questionsReussies'] = 0;
 
     # ouverture de la base de données
     $FICHIER_BD = "../BD/BD";
     $db = new PDO('sqlite:'.$FICHIER_BD);
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    # récupération de l'arbre
-    $arbre_bd = $db->prepare("SELECT id FROM ARBRE WHERE id_qcm = ".POST['id_qcm']);
-    $arbre_bd->execute();
-
     # remplissage de l'objet arbre
-    $requete = "SELECT niveau.valeur, niveau.label_tag FROM niveau WHERE niveau.id_arbre = ".$arbre_bd['id'] . " ORDER BY niveau.valeur";
+    $requete = "SELECT niveau.VALEUR, niveau.LABEL_TAG FROM niveau WHERE niveau.ID_QCM = ".$_POST['id_qcm'] . " ORDER BY niveau.VALEUR";
     $stmt = $db->prepare($requete);
     $stmt->execute();
     $niveaux = $stmt->fetchAll();
 
-    $arbre = new Arbre($arbre_bd['id']);
+    $arbre = new Arbre($_POST['id_qcm']);
     foreach ($niveaux as $niveau){
-        $arbre->addNiveau($niveau['valeur']);
-        $arbre->addTag($niveau['valeur'], $niveau['label_tag']);
+        $arbre->addNiveau($niveau['VALEUR']);
+        $arbre->addTag($niveau['VALEUR'], $niveau['LABEL_TAG']);
     }
 
     $_SESSION['arbre'] = $arbre;
-
-    # récupération des questions
