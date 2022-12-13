@@ -53,7 +53,7 @@ echo str_dump($_SESSION);
 
     # ajout des réponses aux questions
     foreach ($banqueQuestions as $question){
-        $stmt = $db->prepare("SELECT ID, LABEL, ETAT_VERITE FROM REPONSE WHERE ID_QUESTION = ".$question->getId());
+        $stmt = $db->prepare("SELECT ID, LABEL, ETAT_VERITE FROM REPONSE WHERE ID = ".$question->getId());
         $stmt->execute();
         $reponses = $stmt->fetchAll(); // tableau de réponses (tableau associatif)
         foreach ($reponses as $reponse) {

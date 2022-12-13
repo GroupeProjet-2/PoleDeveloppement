@@ -4,6 +4,8 @@
     <div class="right">
         <?php
             session_start();
+            // Absolute path to the root of the project
+            // Include the header
             if (isset($_SESSION['user'])) {
                 echo '<a href="logout.php" class="link">Mon Compte</a>';
             } else {
