@@ -427,6 +427,6 @@
         2,
     );
 
-    $tom_montbord->insererDansBd();
-    $mathis_heriveau->insererDansBd();
-    $mme_bruyere->insererDansBd();
+    #$tom_montbord->insererDansBd();
+    #$mathis_heriveau->insererDansBd();
+    #$mme_bruyere->insererDansBd();
