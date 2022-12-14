@@ -417,5 +417,16 @@
         2
     );
 
+
+    $mme_bruyere = new Utilisateur(
+        "bruyere",
+        "Marie",
+        "Bruyère",
+        "bruyere@iutbayonne.univ-pau.fr",
+        "JaimeLesMathsVrmBcp",
+        2,
+    );
+
     $tom_montbord->insererDansBd();
     $mathis_heriveau->insererDansBd();
+    $mme_bruyere->insererDansBd();

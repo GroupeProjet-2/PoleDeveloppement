@@ -49,6 +49,7 @@ CREATE TABLE QUESTION (
     ETAT VARCHAR(10) check ( ETAT in ('A_VERIFIER', 'A_MODIFIER', 'ACCEPTE') ) NOT NULL,
     TYPE VARCHAR(25) NOT NULL,
     ID_UTILISATEUR NUMBER(10) NOT NULL,
+    DIFFICULTE text not null check ( DIFFICULTE in ('facile', 'moyen', 'difficile') ),
     CONSTRAINT FK_QUESTION_UTILISATEUR FOREIGN KEY (ID_UTILISATEUR) REFERENCES UTILISATEUR(USER_LOGIN),
     CONSTRAINT FK_QUESTION_TYPE FOREIGN KEY (TYPE) REFERENCES TYPE(LABEL)
 );
@@ -97,63 +98,10 @@ CREATE TABLE contenir (
     CONSTRAINT FK_DEPOT_CONTENIR FOREIGN KEY (ID_DEPOT) REFERENCES DEPOT(ID)
 );
 
-
-create table ROLE (
-    ROLE_ID integer primary key autoincrement,
-    ROLE_NAME text not null
-);
-
-insert into ROLE (ROLE_NAME) values ('ETUDIANT');
-insert into ROLE (ROLE_NAME) values ('ENSEIGNANT');
-insert into ROLE (ROLE_NAME) values ('ADMINISTRATEUR');
+insert into TYPE (LABEL) values ('Choix unique');
+insert into TYPE (LABEL) values ('Choix multiple');
+insert into TYPE (LABEL) values ('Texte');
+insert into TYPE (LABEL) values ('FlashCard');
 
 
-create table if not exists UTILISATEUR (
-    USER_LOGIN text primary key,
-    USER_FIRST_NAME text not null,
-    USER_LAST_NAME text not null,
-    USER_EMAIL text not null,
-    USER_PASSWORD text not null,
-    USER_ROLE_ID integer not null references ROLE(ROLE_ID),
-    USER_TD integer default 0,
-    USER_TP integer default 0,
-
-    unique (USER_EMAIL)
-);
-
-create table if not exists ETUDIANT (
-    ETUDIANT_LOGIN text primary key references UTILISATEUR (USER_LOGIN),
-    TD integer not null,
-    TP integer not null
-);
-
--- ======
--- Ce trigger permet que dès qu'un utilisateur est inséré dans la table 'UTILISATEUR', on
--- vérifie si c'est un étudiant, si c'est le cas, on l'ajoute alors dans la table 'ETUDIANT'.
--- ======
-create trigger if not exists UTILISATEUR_AFTER_INSERT
-after insert on UTILISATEUR when new.USER_ROLE_ID = 1
-begin
-    insert into ETUDIANT (ETUDIANT_LOGIN, TD, TP) values (new.USER_LOGIN, new.USER_TD, new.USER_TP);
-end;
-
--- ======
--- Ce trigger permet que dès qu'un utilisateur est update dans la table 'UTILISATEUR', on
--- vérifie si c'est un étudiant, si c'est le cas, on l'update alors dans la table 'ETUDIANT'.
--- ======
-create trigger if not exists UTILISATEUR_AFTER_UPDATE
-after update on UTILISATEUR when new.USER_ROLE_ID = 1
-begin
-    update ETUDIANT set TD = new.USER_TD, TP = new.USER_TP where ETUDIANT_LOGIN = new.USER_LOGIN;
-end;
-
--- ======
--- Ce trigger permet que dès qu'un utilisateur est supprimé dans la table 'UTILISATEUR', on
--- vérifie si c'est un étudiant, si c'est le cas, on le supprime alors dans la table 'ETUDIANT'.
--- ======
-create trigger if not exists UTILISATEUR_AFTER_DELETE
-after delete on UTILISATEUR when old.USER_ROLE_ID = 1
-begin
-    delete from ETUDIANT where ETUDIANT_LOGIN = old.USER_LOGIN;
-end;
---
+drop table QUESTION
