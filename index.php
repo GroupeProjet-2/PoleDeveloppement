@@ -35,9 +35,7 @@
         ?>
 
         <main>
-            <?php
-                echo "Hello, World!";
-            ?>
+
         </main>
 
         <footer>
