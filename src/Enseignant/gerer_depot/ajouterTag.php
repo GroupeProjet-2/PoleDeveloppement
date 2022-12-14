@@ -14,4 +14,4 @@
     $stmt->bindParam(':tag', $tag);
     $stmt->execute();
 
-    //header('Location: modifier.php?id='.$id);
+    header('Location: modifier.php?id='.$id);

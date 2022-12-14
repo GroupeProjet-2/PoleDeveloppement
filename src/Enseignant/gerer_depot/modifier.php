@@ -132,8 +132,8 @@
             foreach ($tags as $tag){
                 $nom = $stmt->fetch();
                 echo "<tr>";
-                echo "<td>".$tags."</td>";
-                echo "<td><a href='supprimerTag.php?id=".$tag['TAG_ID']."&depot=".$id."'>Supprimer</a></td>";
+                echo "<td>".$tag['tag_id']."</td>";
+                echo "<td><a href='supprimerTag.php?tag=".$tag['tag_id']."&id=".$id."'>Supprimer</a></td>";
                 echo "</tr>";
             }
 
@@ -145,15 +145,18 @@
     <form action="ajouterTag.php" method="get">
         <select name="tag">
             <?php
-                $sql = "select * from tag where LABEL not in (select lier_tag_depot.tag_id from lier_tag_depot where lier_tag_depot.depot_id = :id)";
+                $sql = "select * from tag where tag.LABEL not in (select lier_tag_depot.tag_id from lier_tag_depot where lier_tag_depot.depot_id = :id)";
                 $stmt = $conn_bd->prepare($sql);
                 $stmt->bindParam(':id', $id);
                 $stmt->execute();
                 $tags = $stmt->fetchAll();
-                foreach ($tags as $tag){
-                    echo "<option value='".$tag['ID']."'>".$tag['LABEL']."</option>";
+                if (count($tags) == 0){
+                    echo "<option value=''>Aucun tag disponible</option>";
+                }else{
+                    foreach ($tags as $tag){
+                        echo "<option value='".$tag['LABEL']."'>".$tag['LABEL']."</option>";
+                    }
                 }
-
             ?>
         </select>
         <input type="text" name="id" value="<?php echo $id; ?>" style="display: none">
