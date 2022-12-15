@@ -15,86 +15,102 @@ drop table if exists ROLE;
 
 
 
-CREATE TABLE TAG (
-    LABEL VARCHAR(50) PRIMARY KEY,
-    CREATEUR VARCHAR(50) NOT NULL,
-    CONSTRAINT FK_CREATEUR FOREIGN KEY (CREATEUR) REFERENCES UTILISATEUR(USER_LOGIN)
+create table TAG (
+    LABEL    text primary key,
+    CREATEUR text not null,
+    constraint FK_CREATEUR foreign key (CREATEUR) references UTILISATEUR(USER_LOGIN)
 );
 
-CREATE TABLE QCM (
-    ID INT PRIMARY KEY,
-    TITRE VARCHAR(50) NOT NULL,
-    DESCRIPTION VARCHAR(255) NOT NULL,
-    CREATEUR VARCHAR(50) NOT NULL,
-    EST_PUBLIC BOOLEAN NOT NULL,
-    CONSTRAINT FK_CREATEUR FOREIGN KEY (CREATEUR) REFERENCES UTILISATEUR(USER_LOGIN)
+create table QCM (
+    ID          integer primary key autoincrement,
+    TITRE       text not null,
+    DESCRIPTION text not null,
+    TYPE        text not null check (TYPE in ('statique', 'dynamique')),
+    CREATEUR    text not null,
+    EST_PUBLIC  BOOLEAN not null,
+    constraint FK_CREATEUR foreign key (CREATEUR) references UTILISATEUR(USER_LOGIN)
 );
 
-CREATE TABLE niveau (
-    LABEL_TAG VARCHAR(50) NOT NULL,
-    ID_QCM INT NOT NULL,
-    VALEUR INT NOT NULL,
-    CONSTRAINT FK_TAG_NIVEAU FOREIGN KEY (LABEL_TAG) REFERENCES TAG(LABEL),
-    CONSTRAINT FK_QCM_NIVEAU FOREIGN KEY (ID_QCM)  REFERENCES QCM(ID),
-    PRIMARY KEY (LABEL_TAG, ID_QCM)
+create table niveau (
+    LABEL_TAG text not null,
+    ID_QCM    int not null,
+    VALEUR    int not null,
+    constraint FK_TAG_NIVEAU foreign key (LABEL_TAG) references TAG(LABEL),
+    constraint FK_QCM_NIVEAU foreign key (ID_QCM)  references QCM(ID),
+    primary key (LABEL_TAG, ID_QCM)
 );
 
-CREATE TABLE TYPE (
-    LABEL VARCHAR(25) PRIMARY KEY
+create table TYPE (
+    LABEL text primary key
 );
 
-CREATE TABLE QUESTION (
-    ID INTEGER PRIMARY KEY AUTOINCREMENT,
-    LABEL VARCHAR(255) NOT NULL,
-    ETAT VARCHAR(10) check ( ETAT in ('A_VERIFIER', 'A_MODIFIER', 'ACCEPTE') ) NOT NULL,
-    TYPE VARCHAR(25) NOT NULL,
-    ID_UTILISATEUR NUMBER(10) NOT NULL,
-    CONSTRAINT FK_QUESTION_UTILISATEUR FOREIGN KEY (ID_UTILISATEUR) REFERENCES UTILISATEUR(USER_LOGIN),
-    CONSTRAINT FK_QUESTION_TYPE FOREIGN KEY (TYPE) REFERENCES TYPE(LABEL)
+create table QUESTION (
+    ID             integer primary key autoincrement,
+    LABEL          text not null,
+    ETAT           text check ( ETAT in ('A_VERIFIER', 'A_MODIFIER', 'ACCEPTE') ) not null,
+    TYPE           text not null,
+    ID_UTILISATEUR integer not null,
+    constraint FK_QUESTION_UTILISATEUR foreign key (ID_UTILISATEUR) references UTILISATEUR(USER_LOGIN),
+    constraint FK_QUESTION_TYPE foreign key (TYPE) references TYPE(LABEL)
 );
 
-CREATE TABLE REPONSE (
-    ID INTEGER PRIMARY KEY AUTOINCREMENT,
-    LABEL VARCHAR(255) NOT NULL,
-    ETAT_VERITE BOOLEAN NOT NULL,
-    QUESTION_ID INT NOT NULL,
-    CONSTRAINT FK_QUESTION_REPONSE FOREIGN KEY (QUESTION_ID) REFERENCES QUESTION(ID)
-);
-
-CREATE TABLE entrainer (
-    UTILISATEUR VARCHAR(50) NOT NULL,
-    QCM INT NOT NULL,
-    TEMPS_PASSE INT NOT NULL,
-    SCORE NUMBER(5,2) NOT NULL,
-    CONSTRAINT FK_UTILISATEUR_ENTRAINER FOREIGN KEY (UTILISATEUR) REFERENCES UTILISATEUR(USER_LOGIN),
-    CONSTRAINT FK_QCM_ENTRAINER FOREIGN KEY (QCM) REFERENCES QCM(ID),
-    PRIMARY KEY (UTILISATEUR, QCM)
-);
-
-CREATE TABLE composer (
-    ID_QCM INT NOT NULL,
-    ID_QUESTION INT NOT NULL,
-    NB_TENTATIVES_TOTAL INT NOT NULL,
-    NB_TENTATIVES_REUSSIES INT NOT NULL,
-    CONSTRAINT FK_QCM_COMPOSER FOREIGN KEY (ID_QCM) REFERENCES QCM(ID),
-    CONSTRAINT FK_QUESTION_COMPOSER FOREIGN KEY (ID_QUESTION) REFERENCES QUESTION(ID),
-    PRIMARY KEY (ID_QCM, ID_QUESTION)
-);
-
-CREATE TABLE lier_tag_question (
-    LABEL_TAG VARCHAR(50) NOT NULL,
-    ID_QUESTION INT NOT NULL,
-    CONSTRAINT FK_TAG_LIEE FOREIGN KEY (LABEL_TAG) REFERENCES TAG(LABEL),
-    CONSTRAINT FK_QUESTION_LIEE FOREIGN KEY (ID_QUESTION) REFERENCES QUESTION(ID),
-    PRIMARY KEY (LABEL_TAG, ID_QUESTION)
+create table REPONSE (
+    ID integer primary key autoincrement,
+    LABEL text not null,
+    ETAT_VERITE BOOLEAN not null,
+    QUESTION_ID int not null,
+    constraint FK_QUESTION_REPONSE foreign key (QUESTION_ID) references QUESTION(ID)
 );
 
 
-CREATE TABLE contenir (
-    ID_QUESTION INT NOT NULL,
-    ID_DEPOT INT NOT NULL,
-    CONSTRAINT FK_QUESTION_CONTENIR FOREIGN KEY (ID_QUESTION) REFERENCES QUESTION(ID),
-    CONSTRAINT FK_DEPOT_CONTENIR FOREIGN KEY (ID_DEPOT) REFERENCES DEPOT(ID)
+create table DEPOT (
+    ID             INTEGER not null primary key autoincrement,
+    TITRE          TEXT not null,
+    DESCRIPTION    TEXT not null,
+    status         boolean not null,
+    DATE_OUVERTURE datetime not null,
+    DATE_FERMETURE datetime not null,
+    CREATEUR       TEXT
+    constraint DEPOT_UTILISATEUR_USER_LOGIN_fk
+        references UTILISATEUR
+);
+
+
+
+create table entrainer (
+    UTILISATEUR text not null,
+    QCM int not null,
+    TEMPS_PASSE int not null,
+    SCORE NUMBER(5,2) not null,
+    constraint FK_UTILISATEUR_ENTRAINER foreign key (UTILISATEUR) references UTILISATEUR(USER_LOGIN),
+    constraint FK_QCM_ENTRAINER foreign key (QCM) references QCM(ID),
+    primary key (UTILISATEUR, QCM)
+);
+
+create table composer (
+    ID_QCM int not null,
+    ID_QUESTION int not null,
+    NB_TENTATIVES_TOTAL int not null,
+    NB_TENTATIVES_REUSSIES int not null,
+    constraint FK_QCM_COMPOSER foreign key (ID_QCM) references QCM(ID),
+    constraint FK_QUESTION_COMPOSER foreign key (ID_QUESTION) references QUESTION(ID),
+    primary key (ID_QCM, ID_QUESTION)
+);
+
+create table lier_tag_question (
+    LABEL_TAG text not null,
+    ID_QUESTION int not null,
+    constraint FK_TAG_LIEE foreign key (LABEL_TAG) references TAG(LABEL),
+    constraint FK_QUESTION_LIEE foreign key (ID_QUESTION) references QUESTION(ID),
+    primary key (LABEL_TAG, ID_QUESTION)
+);
+
+
+create table contenir (
+    ID_QUESTION int not null,
+    ID_DEPOT int not null,
+    constraint FK_QUESTION_CONTENIR foreign key (ID_QUESTION) references QUESTION(ID),
+    constraint FK_DEPOT_CONTENIR foreign key (ID_DEPOT) references DEPOT(ID)
 );
 
 
@@ -157,3 +173,17 @@ begin
     delete from ETUDIANT where ETUDIANT_LOGIN = old.USER_LOGIN;
 end;
 --
+
+-- INSERTION QCM
+insert into QCM (TITRE, DESCRIPTION, TYPE, CREATEUR, EST_PUBLIC)
+values ('QCM 1', 'Description du QCM 1', 'statique','bruyere', 1);
+
+-- INSERTION DEPOT
+insert into DEPOT (TITRE, DESCRIPTION, STATUS, DATE_OUVERTURE, DATE_FERMETURE, CREATEUR)
+values ('R3.01', 'Developpement web', 1, '2022-12-14 00:00:00', '2022-12-19 00:00:00', 'bruyere');
+
+insert into DEPOT (TITRE, DESCRIPTION, STATUS, DATE_OUVERTURE, DATE_FERMETURE, CREATEUR)
+values ('R3.01 Partie 2', 'Developpement web', 1, '2022-12-19 00:00:00', '2022-12-31 00:00:00', 'bruyere');
+
+insert into DEPOT (TITRE, DESCRIPTION, STATUS, DATE_OUVERTURE, DATE_FERMETURE, CREATEUR)
+values ('R3.09', 'Developpement web', 1, '2022-12-14 00:00:00', '2022-12-19 00:00:00', 'bruyere');

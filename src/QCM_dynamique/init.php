@@ -3,12 +3,12 @@
     // Afficher les erreurs variable de session
 
     # include les classes
-    include_once("../CLASSES/Arbre.php");
-    include_once("../CLASSES/Question.php");
-    include_once("../CLASSES/Reponse.php");
-    include_once("../CLASSES/Difficulte.php");
-    include_once("../CLASSES/Type.php");
-    include_once("../CLASSES/Statut.php");
+    include_once("../Classes/Arbre.php");
+    include_once("../Classes/Question.php");
+    include_once("../Classes/Reponse.php");
+    include_once("../Classes/Difficulte.php");
+    include_once("../Classes/Type.php");
+    include_once("../Classes/Statut.php");
 
     session_start();
 echo str_dump($_SESSION);
