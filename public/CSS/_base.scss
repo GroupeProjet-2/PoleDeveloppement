@@ -1,4 +1,6 @@
 
+@import "variables";
+
 .link {
   display: inline-block;
   position: relative;
@@ -24,6 +26,17 @@
     transform-origin: bottom left;
   }
 }
+
+.btn {
+  font-size: 1.5rem;
+
+  padding: .5rem 1rem;
+
+  background: $blue !important;
+  border-radius: 999px !important;
+
+}
+
 
 * {
   text-align: center;

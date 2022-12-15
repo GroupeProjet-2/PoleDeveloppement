@@ -3,6 +3,15 @@
  * @file public/CSS/main.scss
  * @description main stylesheet
  ****************************************************/
+/**
+ * @file _variables.scss
+ * @description This file contains all the variables used in the project.
+ ***********************************************************************/
+/* COLORS  =========================================================  COLORS */
+/* END COLORS =================================================== END COLORS */
+/* SIZES  ============================================================ SIZES */
+/* END SIZES  ===================================================  END SIZES */
+/* END _VARIABLES.SCSS */
 .link {
   display: inline-block;
   position: relative;
@@ -24,6 +33,13 @@
 .link:hover:after {
   transform: scaleX(1);
   transform-origin: bottom left;
+}
+
+.btn {
+  font-size: 1.5rem;
+  padding: 0.5rem 1rem;
+  background: #064A60 !important;
+  border-radius: 999px !important;
 }
 
 * {
@@ -167,27 +183,55 @@ html body header {
   justify-content: space-between;
   align-items: center;
   padding: 0 2vw;
-  background: var(--background-color);
-  color: var(--text-color);
+  background: #042C3A;
+  color: #bbb;
   box-shadow: 0 0 2px var(--text-color);
   transition: background-color 0.5s ease, color 0.5s ease;
 }
-html body header .right {
+html body header h1 {
+  padding: 0.5rem 1.5rem;
+  border-radius: 999px;
+  background: #064A60;
+}
+html body header .header-group {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  gap: 2vw;
+  gap: 2.5rem;
 }
-html body header .right #themeSwitcherContainer {
+html body header .header-group .tabs {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.5rem;
+}
+html body header .header-group .tabs li {
+  width: 100%;
+  padding: 0 1rem;
+}
+html body header .header-group .tabs li:not(:first-child) {
+  border-left: 1px solid #bbb;
+}
+html body header .header-group .tabs li a.link::after {
+  background: #bbb;
+}
+html body header .header-group .btn {
+  height: 80%;
+}
+html body header .header-group .btn:focus {
+  background: #0D8FBF !important;
+}
+html body header #themeSwitcherContainer {
   border-radius: 4px;
   background-color: rgba(208, 208, 102, 0.3137254902);
   padding: 4px;
 }
-html body header .right #themeSwitcherContainer #themeSwitcher:hover {
+html body header #themeSwitcherContainer #themeSwitcher:hover {
   transform: rotate(22.5deg);
 }
-html body header .right #themeSwitcherContainer #themeSwitcher svg path {
+html body header #themeSwitcherContainer #themeSwitcher svg path {
   fill: #D0D066;
 }
 html body main {

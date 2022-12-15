@@ -53,7 +53,8 @@ include('./src/header.php')
     c-58 -10 -181 -38 -275 -61 -807 -204 -1528 -616 -2120 -1210 -726 -728 -1170 -1655 -1297 -2704 -29 -238 -32 -741 -5 -930 53 -378 142 -589 320 -758 171
     -163 421 -234 772 -220 269 11 533 55 1230 208 817 179 1195 244 1690 291 205 19 4525 19 4730 0 495 -47 873 -112 1690 -291 697 -153 961 -197 1230 -208
     254 -10 438 21 605 103 172 84 315 254 390 463 74 203 108 420 117 736 34 1230 -451 2439 -1332 3320 -707 707 -1608 1156 -2597 1294 -206 29 -201 30
-    -283 -33z"/> </g></svg>
+    -283 -33z"/> </g>
+            </svg>
             <label>SE CONNECTER</label>
             <!-- Bouton qui envoie sur la page asset/php/connexion.php avec le type etudiant, onclick : envoyer sur connexion.php et mettre le cookie type-->
             <button onclick="document.location.href='./src/BD/connexion_utilisateur.php'">Connexion</button>

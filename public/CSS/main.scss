@@ -51,41 +51,84 @@ html {
 
       padding: 0 2vw;
 
-      background: var(--background-color);
-      color: var(--text-color);
+      background: $dark-blue;
+      color: $gray;
 
       box-shadow: 0 0 2px var(--text-color);
 
       transition: background-color 0.5s ease, color 0.5s ease;
 
-      .right {
+      h1 {
+        padding: .5rem 1.5rem;
+
+        border-radius: 999px;
+
+        background: $blue;
+      }
+
+      .header-group {
         display: flex;
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
-        gap: 2vw;
 
-        #themeSwitcherContainer {
+        gap: 2.5rem;
 
-          border-radius: 4px;
-          background-color: $gold-dimmed;
+        .tabs {
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+          align-items: center;
 
-          padding: 4px;
+          font-size: 1.5rem;
 
-          #themeSwitcher {
+          li {
+            width: 100%;
+            padding: 0 1rem;
 
-            &:hover {
-              transform: rotate(22.5deg);
+            &:not(:first-child) {
+              border-left: 1px solid $gray;
             }
 
-            svg {
-              path {
-                fill: $gold;
-              }
+            a.link::after {
+              background: $gray;
+            }
+
+          }
+          
+        }
+
+        .btn {
+          height: 80%;
+
+          &:focus {
+            background: $light-blue !important;
+          }
+        }
+        
+      }
+
+      #themeSwitcherContainer {
+
+        border-radius: 4px;
+        background-color: $gold-dimmed;
+
+        padding: 4px;
+
+        #themeSwitcher {
+
+          &:hover {
+            transform: rotate(22.5deg);
+          }
+
+          svg {
+            path {
+              fill: $gold;
             }
           }
         }
       }
+
     }
 
     main {
