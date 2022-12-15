@@ -33,7 +33,6 @@
         $stmt->bindValue(':id_depot', $id_depot);
         $stmt->execute();
 
-        echo "Question créée <br>";
 
         // Récupération de l'id de la question
         $id_question = $conn_bd->lastInsertId();
@@ -53,7 +52,6 @@
                 }
                 $stmt->bindParam(':etat_verite', $etat);
                 $stmt->bindParam(':question_id', $id_question);
-                echo "Réponse : $reponse <br>";
                 $stmt->execute();
             }
             $i++;
@@ -70,71 +68,169 @@
 ?>
 
 
-<html>
+<html lang="fr">
 <head>
-    <title>
-        Création de question
-    </title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+
+
+    <meta charset="utf-8">
+    <meta name="authors" content="Mathis, Hériveau, Tom Montbord, Tom Planche">
+    <meta name="description" content="Proof Of Concept - SAE_3 Pole Développement">
+    <meta name="viewport" content="width=device-width, height=device-height ,initial-scale=1.0">
+
+    <link rel="stylesheet" href="../../public/CSS/main.css">
+    <link rel="stylesheet/less" type="text/css" href="../../public/CSS/creerQuestion.scss"/>
+    <script src="http://cdn.jsdelivr.net/npm/less@4.1.1"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300&display=swap" rel="stylesheet">
+
+    <title>Creation de question</title>
 </head>
 <body>
-    <h1>Création de question</h1>
-    <form>
-        <!-- ID de la question auto Incrementé -->
-        <!-- Question -->
-        <label for="Titre">Question</label>
-        <input type="text" name="Question" id="Question">
-        <!-- Etat prédéfini -->
-        <!-- Difficulté -->
-        <label for="Difficulté">Difficulté</label>
-        <select name="Difficulté" id="Difficulté">
-            <option value="facile">Facile</option>
-            <option value="moyen">Moyen</option>
-            <option value="difficile">Difficile</option>
-        </select>
-        <!-- Type de question -->
-        <label for="Type">Type de question</label>
-        <?php
-        $sql = "SELECT * FROM type";
-        $stmt = $conn_bd->prepare($sql);
-        $stmt->execute();
-        $result = $stmt->fetchAll();
+    <?php
+       include '../header.php';
+    ?>
+    <main>
+        <section class="container">
+            <form>
+                <!-- ID de la question auto Incrementé -->
+                <!-- Question -->
+                <div class="group-form question">
+                    <label for="Titre">Votre question : </label>
+                    <input type="text" name="Question" id="Question" required>
+                </div>
 
-        echo "<select name='Type' id='Type'>";
-        foreach ($result as $row) {
-            echo "<option value='".$row['LABEL']."'>".$row['LABEL']."</option>";
-        }
-        echo "</select>";
-        ?>
-        <!-- Réponses -->
-        <label for="Réponses">Vos réponses :</label>
-        <input type="checkbox" name="bonneReponse[]" value="1">
-        <input type="text" name="Réponses[]" id="Réponses">
-        <input type="checkbox" name="bonneReponse[]" value="2">
-        <input type="text" name="Réponses[]" id="Réponses">
-        <input type="checkbox" name="bonneReponse[]" value="3">
-        <input type="text" name="Réponses[]" id="Réponses">
-        <input type="checkbox" name="bonneReponse[]" value="4">
-        <input type="text" name="Réponses[]" id="Réponses">
-        <!-- Tag -->
-        <label for="Tag">Tag</label>
-        <?php
-        $sql = "SELECT * FROM tag";
-        $stmt = $conn_bd->prepare($sql);
-        $stmt->execute();
-        $result = $stmt->fetchAll();
+                <!-- Etat prédéfini -->
+                <!-- Difficulté -->
+                <div class="group-form difficulte">
+                    <label for="Difficulté">Difficulté : </label>
+                    <select name="Difficulté" id="Difficulté">
+                        <option value="facile">Facile</option>
+                        <option value="moyen">Moyen</option>
+                        <option value="difficile">Difficile</option>
+                    </select>
+                </div>
+                <!-- Type de question -->
+                <div class="group-form type">
+                    <label for="Type">Type : </label>
+                    <?php
+                        $sql = "SELECT * FROM type";
+                        $stmt = $conn_bd->prepare($sql);
+                        $stmt->execute();
+                        $result = $stmt->fetchAll();
 
-        echo "<select name='Tag' id='Tag'>";
-        foreach ($result as $row) {
-            echo "<option value='".$row['LABEL']."'>".$row['LABEL']."</option>";
-        }
-        echo "</select>";
+                        echo "<select name='Type' id='Type'>";
+                        foreach ($result as $row) {
+                            echo "<option value='".$row['LABEL']."'>".$row['LABEL']."</option>";
+                        }
+                        echo "</select>";
+                    ?>
+                </div>
+                <!-- Tag -->
+                <div class="group-form tag">
 
-        ?>
-        <!-- Bouton de validation -->
-        <input type="submit" name="Valider" value="Valider">
+                    <label for="Tag">Ajouter des tags :</label>
+                    <?php
+                    $sql = "SELECT * FROM tag";
+                    $stmt = $conn_bd->prepare($sql);
+                    $stmt->execute();
+                    $result = $stmt->fetchAll();
 
+                    echo "<select name='Tag' id='Tag' >";
+                    foreach ($result as $row) {
+                        echo "<option value='".$row['LABEL']."'>".$row['LABEL']."</option>";
+                    }
+                    echo "</select>";
 
+                    ?>
+                </div>
+                <!-- Liste des tags -->
+                <div class="group-form liste-tag">
+                    <label for="ListeTag">Liste des tags :</label>
+                    <ul id="ListeTag" required>
+                        <li>Mathématique</li>
+                        <li>Physique</li>
+                        <li>Physique</li>
+                        <li>Physique</li>
+                        <li>Physique</li>
+                    </ul>
+                </div>
+                <!-- Réponses -->
+                <div class="group-form listeReponses">
+                    <div class="reponses">
+                    <input type="radio" class="lesReponses" name="bonneReponse[]" value="1">
+                    <input type="text"  class="valeurReponse" name="Réponses[]" id="Réponses" required>
+                    <input type="radio" class="lesReponses" name="bonneReponse[]" value="2">
+                    <input type="text"  class="valeurReponse" name="Réponses[]" id="Réponses" required>
+                    <input type="radio" class="lesReponses" name="bonneReponse[]" value="3">
+                    <input type="text"  class="valeurReponse" name="Réponses[]" id="Réponses">
+                    <input type="radio" class="lesReponses" name="bonneReponse[]" value="4">
+                    <input type="text"  class="valeurReponse" name="Réponses[]" id="Réponses">
+                </div>
+                </div>
+                <!-- Bouton de validation -->
+                <div class="bouton">
+                    <input type="submit" name="Valider" value="Valider">
+                </div>
+            </form>
+        </section>
+    </main>
 
-    </form>
+    <?php
+       include '../footer.php';
+    ?>
 </body>
+
+
+<script>
+    // Script qui change le type d'input en fonction du type de question selectionné
+    let type = document.getElementById("Type");
+
+    type.addEventListener("change", function() {
+        let type = document.getElementById("Type").value;
+
+        let lesReponses = document.getElementsByClassName("lesReponses");
+        let Réponses = document.getElementsByClassName("valeurReponse");
+
+        for (let i = 0; i < lesReponses.length; i++) {
+            Réponses[i].type = "text";
+            Réponses[i].value = "";
+            Réponses[i].readOnly = false;
+        }
+
+        if (type == "Choix multiple") {
+            for (let i = 0; i < lesReponses.length; i++) {
+                lesReponses[i].type = "checkbox";
+            }
+        } else if (type == "Choix unique") {
+            for (let i = 0; i < lesReponses.length; i++) {
+                lesReponses[i].type = "radio";
+            }
+        }
+        else if (type == "Vrai ou faux") {
+            // Mettre un bouton radio pour vrai et un pour faux
+            // Mettre un input caché pour les autres réponses
+            for (let i = 0; i < lesReponses.length; i++) {
+                if (i == 0) {
+                    lesReponses[i].type = "radio";
+                    Réponses[i].value = "Vrai";
+                    Réponses[i].readOnly = true;
+                } else if (i == 1) {
+                    lesReponses[i].type = "radio";
+                    Réponses[i].value = "Vrai";
+                    Réponses[i].value = "Faux";
+                    Réponses[i].readOnly = true;
+                } else {
+                    lesReponses[i].type = "hidden";
+                    Réponses[i].type = "hidden";
+                }
+            }
+        }
+
+    });
+</script>
 </html>
