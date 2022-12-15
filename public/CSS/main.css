@@ -31,6 +31,7 @@
   -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
   -moz-box-sizing: border-box; /* Firefox, other Gecko */
   box-sizing: border-box; /* Opera/IE 8+ */
+  transition: transform 0.5s ease;
 }
 
 /**
@@ -153,6 +154,11 @@ html body.dark {
   --background-color: #111;
   --text-color: #bbb;
 }
+html body h1 {
+  font-size: 2rem;
+  font-weight: 400;
+  margin: 0;
+}
 html body header {
   height: 8vh;
   width: 100%;
@@ -178,14 +184,82 @@ html body header .right #themeSwitcherContainer {
   background-color: rgba(208, 208, 102, 0.3137254902);
   padding: 4px;
 }
-html body header .right #themeSwitcherContainer #themeSwitcher {
-  transition: transform 0.5s ease;
-}
 html body header .right #themeSwitcherContainer #themeSwitcher:hover {
   transform: rotate(22.5deg);
 }
 html body header .right #themeSwitcherContainer #themeSwitcher svg path {
   fill: #D0D066;
+}
+html body main {
+  height: 100%;
+  width: 100%;
+  padding: 2rem;
+}
+html body main .titre {
+  font-size: 2rem;
+  font-weight: 400;
+  margin-bottom: 2rem;
+  text-align: left;
+  text-decoration: underline;
+}
+html body main .infos-qcm {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 2vh;
+}
+html body main .infos-qcm h1 {
+  text-decoration: underline;
+}
+html body main .infos-qcm label {
+  font-size: 1.5rem;
+  font-weight: 400;
+}
+html body main .infos-qcm label::after {
+  content: " :";
+}
+html body main .infos-qcm .labelInputRow {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+}
+html body main .infos-qcm input, html body main .infos-qcm textarea {
+  text-align: left;
+  padding-left: 0.5rem;
+  font-size: 1.5rem;
+  font-weight: 400;
+  border: 1px solid var(--text-color);
+  border-radius: 4px;
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+html body main .infos-qcm input[type=checkbox], html body main .infos-qcm textarea[type=checkbox] {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+html body main .infos-qcm input[type=submit], html body main .infos-qcm textarea[type=submit] {
+  height: auto;
+  width: auto;
+  padding: 1rem;
+  font-size: 1.5rem;
+  font-weight: 400;
+  border: 1px solid var(--text-color);
+  border-radius: 4px;
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+html body main .infos-qcm input[type=submit]:hover, html body main .infos-qcm textarea[type=submit]:hover {
+  background-color: var(--text-color);
+  color: var(--background-color);
+}
+html body main .infos-qcm input:focus, html body main .infos-qcm textarea:focus {
+  background-color: var(--text-color);
+  color: var(--background-color);
 }
 
 /* END MAIN.SCSS */

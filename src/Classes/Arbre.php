@@ -1,7 +1,7 @@
 <?php
 
 // Class : Arbre
-// Path: PoleDeveloppement\src\CLASSES\Arbre.php
+// Path: PoleDeveloppement\src\Classes\Arbre.php
 // Il s'agit d'un arbre pouvant contenir les niveaux de chaque tag et les tags eux-mêmes,
 // pour chaque tag, on a un statut (enum) qui peut être :
 // FACILE, MOYEN_1, MOYEN_2, DIFFICILE
