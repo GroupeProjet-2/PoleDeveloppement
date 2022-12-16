@@ -41,13 +41,24 @@
   background: #064A60 !important;
   border-radius: 999px !important;
 }
+.btn:hover {
+  background: #042C3A !important;
+  outline: #0D8FBF 2px solid !important;
+}
+.btn:focus {
+  background: #0D8FBF !important;
+  color: #111 !important;
+}
+
+#logo {
+  cursor: pointer;
+}
 
 * {
   text-align: center;
   -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
   -moz-box-sizing: border-box; /* Firefox, other Gecko */
   box-sizing: border-box; /* Opera/IE 8+ */
-  transition: transform 0.5s ease;
 }
 
 /**
@@ -160,6 +171,7 @@ html body {
   --text-color: #111;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
   background-color: var(--background-color);
   color: var(--text-color);
@@ -170,7 +182,7 @@ html body.dark {
   --text-color: #bbb;
 }
 html body h1 {
-  font-size: 2rem;
+  font-size: 1.5rem;
   font-weight: 400;
   margin: 0;
 }
@@ -219,19 +231,49 @@ html body header .header-group .tabs li a.link::after {
 html body header .header-group .btn {
   height: 80%;
 }
-html body header .header-group .btn:focus {
-  background: #0D8FBF !important;
-}
 html body header #themeSwitcherContainer {
   border-radius: 4px;
   background-color: rgba(208, 208, 102, 0.3137254902);
   padding: 4px;
+}
+html body header #themeSwitcherContainer #themeSwitcher {
+  height: 1.5rem;
+  width: 1.5rem;
 }
 html body header #themeSwitcherContainer #themeSwitcher:hover {
   transform: rotate(22.5deg);
 }
 html body header #themeSwitcherContainer #themeSwitcher svg path {
   fill: #D0D066;
+}
+html body .path {
+  width: 100%;
+}
+html body .path ul {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: min-content;
+  background: #0D8FBF;
+}
+html body .path ul li {
+  padding: 0 1rem;
+}
+html body .path ul li:not(:first-child) {
+  border-left: 1px solid #bbb;
+}
+html body .path ul li a {
+  background: #bbb;
+}
+html body .path ul:after {
+  content: "";
+  width: min-content;
+  background: var(--background-color);
+  transition: background-color 0.5s ease;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  border-left: 10px solid #0D8FBF;
+  margin-left: 10px;
 }
 html body main {
   height: 100%;
@@ -305,42 +347,195 @@ html body main .infos-qcm input:focus, html body main .infos-qcm textarea:focus 
   color: var(--background-color);
 }
 
-.path{
-  width: 100%;
+/* RESPONSIVE */
+@media screen and (max-width: 1440px) {
+  html {
+    font-size: 100%;
+  }
+  html body header h1 {
+    padding: 0.5rem 1.5rem;
+  }
+  html body header .header-group {
+    gap: 2.5rem;
+  }
+  html body header .header-group .tabs li {
+    padding: 0 1rem;
+  }
+  html body header .header-group .tabs li a {
+    font-size: 1.5rem;
+  }
 }
-
-
-.path > ul {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  width: min-content;
-  background: #0D8FBF;
+@media screen and (max-width: 1320px) {
+  html {
+    font-size: 95%;
+  }
+  html body header h1 {
+    padding: 0.5rem 1.4rem;
+  }
+  html body header .header-group {
+    gap: 2.25rem;
+  }
+  html body header .header-group .tabs li {
+    padding: 0 0.95rem;
+  }
+  html body header .header-group .tabs li a {
+    font-size: 1.45rem;
+  }
 }
-.path > ul > li {
-  padding: 0 1rem;
+@media screen and (max-width: 1200px) {
+  html {
+    font-size: 90%;
+  }
+  html body header h1 {
+    padding: 0.5rem 1.3rem;
+  }
+  html body header .header-group {
+    gap: 2rem;
+  }
+  html body header .header-group .tabs li {
+    padding: 0 0.9rem;
+  }
+  html body header .header-group .tabs li a {
+    font-size: 1.4rem;
+  }
 }
-.path > ul > li:not(:first-child) {
-  border-left: 1px solid #bbb;
+@media screen and (max-width: 1080px) {
+  html {
+    font-size: 85%;
+  }
+  html body header h1 {
+    padding: 0.5rem 1.2rem;
+  }
+  html body header .header-group {
+    gap: 1.75rem;
+  }
+  html body header .header-group .tabs li {
+    padding: 0 0.85rem;
+  }
+  html body header .header-group .tabs li a {
+    font-size: 1.35rem;
+  }
 }
-.path > ul:after {
-  content: "";
-  width: min-content;
-  background: var(--background-color);
-  transition: background-color 0.5s ease;
-
-
-  border-top: 10px solid transparent;
-  border-bottom: 10px solid transparent;
-  border-left: 10px solid #0D8FBF;
-  margin-left: 10px;
+@media screen and (max-width: 960px) {
+  html {
+    font-size: 80%;
+  }
+  html body header h1 {
+    padding: 0.5rem 1.1rem;
+  }
+  html body header .header-group {
+    gap: 1.5rem;
+  }
+  html body header .header-group .tabs li {
+    padding: 0 0.8rem;
+  }
+  html body header .header-group .tabs li a {
+    font-size: 1.3rem;
+  }
 }
-
-.path > ul > li a.link::after {
-  background: #bbb;
+@media screen and (max-width: 840px) {
+  html {
+    font-size: 75%;
+  }
+  html body header h1 {
+    padding: 0.5rem 1rem;
+  }
+  html body header .header-group {
+    gap: 1.25rem;
+  }
+  html body header .header-group .tabs li {
+    padding: 0 0.75rem;
+  }
+  html body header .header-group .tabs li a {
+    font-size: 1.25rem;
+  }
 }
-
-
+@media screen and (max-width: 720px) {
+  html {
+    font-size: 70%;
+  }
+  html body header h1 {
+    padding: 0.5rem 0.9rem;
+  }
+  html body header .header-group {
+    gap: 1rem;
+  }
+  html body header .header-group .tabs li {
+    padding: 0 0.7rem;
+  }
+  html body header .header-group .tabs li a {
+    font-size: 1.2rem;
+  }
+}
+@media screen and (max-width: 600px) {
+  html {
+    font-size: 65%;
+  }
+  html body header h1 {
+    padding: 0.5rem 0.8rem;
+  }
+  html body header .header-group {
+    gap: 0.75rem;
+  }
+  html body header .header-group .tabs li {
+    padding: 0 0.65rem;
+  }
+  html body header .header-group .tabs li a {
+    font-size: 1.15rem;
+  }
+}
+@media screen and (max-width: 480px) {
+  html {
+    font-size: 60%;
+  }
+  html body header h1 {
+    padding: 0.5rem 0.7rem;
+  }
+  html body header .header-group {
+    gap: 0.5rem;
+  }
+  html body header .header-group .tabs li {
+    padding: 0 0.6rem;
+  }
+  html body header .header-group .tabs li a {
+    font-size: 1.1rem;
+  }
+}
+@media screen and (max-width: 360px) {
+  html {
+    font-size: 55%;
+  }
+  html body header h1 {
+    padding: 0.5rem 0.6rem;
+  }
+  html body header .header-group {
+    gap: 0.25rem;
+  }
+  html body header .header-group .tabs li {
+    padding: 0 0.55rem;
+  }
+  html body header .header-group .tabs li a {
+    font-size: 1.05rem;
+  }
+}
+@media screen and (max-width: 240px) {
+  html {
+    font-size: 50%;
+  }
+  html body header h1 {
+    padding: 0.5rem 0.5rem;
+  }
+  html body header .header-group {
+    gap: 0rem;
+  }
+  html body header .header-group .tabs li {
+    padding: 0 0.5rem;
+  }
+  html body header .header-group .tabs li a {
+    font-size: 1rem;
+  }
+}
+/* END RESPONSIVE */
 /* END MAIN.SCSS */
 
 /*# sourceMappingURL=main.css.map */

@@ -5,7 +5,7 @@
 
 <header>
     <div class="header-group">
-        <h1>Auto-QCM</h1>
+        <h1 id="logo">Auto QCM</h1>
 
         <div>
             <ol class="tabs">

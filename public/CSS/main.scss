@@ -34,7 +34,7 @@ html {
     }
 
     h1 {
-      font-size: 2rem;
+      font-size: 1.5rem;
       font-weight: 400;
       margin: 0;
     }
@@ -101,9 +101,7 @@ html {
         .btn {
           height: 80%;
 
-          &:focus {
-            background: $light-blue !important;
-          }
+
         }
         
       }
@@ -116,6 +114,8 @@ html {
         padding: 4px;
 
         #themeSwitcher {
+          height: 1.5rem;
+          width: 1.5rem;
 
           &:hover {
             transform: rotate(22.5deg);
@@ -259,5 +259,39 @@ html {
     }
   }
 }
+/* RESPONSIVE */
+@for $i from 0 through 10 {
+  @media screen and (max-width: 1440px - (120 * $i)) {
+    html {
+      font-size: 100% - calc(5% * $i);
+
+      body {
+        header {
+
+          h1 {
+            padding: .5rem calc(1.5rem - (.1rem * $i));
+          }
+
+          .header-group {
+            gap: calc(2.5rem - (.25rem * $i));
+
+            .tabs {
+              li {
+                padding: 0 calc(1rem - (.05rem * $i));
+
+                a {
+                  font-size: calc(1.5rem - (.05rem * $i));
+                }
+              }
+            }
+
+          }
+        }
+      }
+    }
+  }
+}
+/* END RESPONSIVE */
+
 
 /* END MAIN.SCSS */

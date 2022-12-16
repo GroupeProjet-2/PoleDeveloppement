@@ -1,3 +1,103 @@
+section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
 
+main {
+  height: 10%;
+}
+
+form {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(4, 0.9fr) 0.5fr;
+  width: 80%;
+  grid-gap: 15px;
+  color: white;
+}
+form .group-form {
+  background-color: #064A60;
+  border-radius: 25px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 2%;
+}
+form .group-form label {
+  font-size: 1.2rem;
+  font-weight: 400;
+  white-space: nowrap;
+}
+form .group-form input[type=text] {
+  background-color: white;
+  color: black;
+  padding-top: 0.5%;
+  width: 80%;
+  text-align: start;
+  padding-left: 12px;
+  padding-bottom: 4px;
+  margin-left: 12px;
+}
+form .group-form select {
+  background-color: white;
+  padding-top: 0.5%;
+  margin-left: 10%;
+  width: 80%;
+  color: black;
+}
+form .question {
+  grid-column: 1/4;
+}
+form .difficulte, form .type, form .tag {
+  padding: 9%;
+}
+form .liste-tag {
+  grid-column: 1/4;
+  justify-content: flex-start;
+}
+form .liste-tag ul {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  width: 100%;
+  padding-left: 4%;
+}
+form .liste-tag ul li {
+  width: min-content;
+  white-space: nowrap;
+  background-color: #0D8FBF;
+  border-radius: 10px;
+  padding: 1%;
+  margin-right: 1%;
+}
+form .listeReponses {
+  grid-column: 1/4;
+}
+form .listeReponses .reponses {
+  display: grid;
+  grid-template-columns: 1fr 5fr 1fr 5fr;
+  grid-gap: 15px;
+  width: 100%;
+}
+form .listeReponses .reponses input[type=text] {
+  padding: 1%;
+}
+form .bouton {
+  grid-column: 1/4;
+  display: flex;
+  justify-content: center;
+}
+form .bouton input {
+  background-color: #0D8FBF;
+  border: none;
+  border-radius: 15px;
+  padding: 1%;
+  color: white;
+  font-weight: 400;
+  cursor: pointer;
+  width: 20%;
+}
 
 /*# sourceMappingURL=creerQuestion.css.map */

@@ -35,6 +35,20 @@
   background: $blue !important;
   border-radius: 999px !important;
 
+  &:hover {
+    background: $dark-blue !important;
+    outline: $light-blue 2px solid !important;
+  }
+
+  &:focus {
+    background: $light-blue !important;
+    color: $black !important;
+  }
+
+}
+
+#logo {
+  cursor: pointer;
 }
 
 
@@ -45,6 +59,4 @@
   -moz-box-sizing: border-box;    /* Firefox, other Gecko */
   box-sizing: border-box;         /* Opera/IE 8+ */
 
-
-  transition: transform 0.5s ease;
 }
