@@ -83,6 +83,7 @@
     <link rel="stylesheet" href="/public/CSS/main.css">
     <link rel="stylesheet" href="../../public/CSS/creerQuestion.css"/>
 
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300&display=swap" rel="stylesheet">
@@ -186,7 +187,6 @@
     ?>
 </body>
 
-<script src="/public/JS/main.js"></script>
 
 <script>
     // Script qui change le type d'input en fonction du type de question selectionné
@@ -235,4 +235,5 @@
 
     });
 </script>
+<script src="/public/JS/main.js"></script>
 </html>

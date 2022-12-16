@@ -67,6 +67,7 @@
     <link rel="stylesheet" href="../../../public/CSS/main.css">
     <link rel="stylesheet" href="../../../public/CSS/consulterDepot.css"/>
 
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300&display=swap" rel="stylesheet">
@@ -144,6 +145,8 @@
 
 
 </body>
+
+<script src="../../../public/JS/main.js"></script>
 
 
 

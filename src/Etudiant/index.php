@@ -14,6 +14,8 @@
 
     <link rel="stylesheet" href="/public/CSS/main.css">
     <link rel="stylesheet" href="../../public/CSS/index.css"/>
+    <script src="/public/JS/main.js"></script>
+
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

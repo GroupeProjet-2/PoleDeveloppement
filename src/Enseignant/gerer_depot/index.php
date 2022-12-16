@@ -128,5 +128,7 @@
     include '../../footer.php';
     ?>
 </body>
+<script src="../../../public/JS/main.js"></script>
+
 
 </html>
