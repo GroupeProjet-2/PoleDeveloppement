@@ -18,7 +18,19 @@
      *    - de supprimer un utilisateur de la base de données.
      *
      * Losque l'on crée un utilisateur est crée avec un login qui est un mail ou n'a que le login en argument, on
-     * suppose que l'utilisateur existe dans la base de données. On récupère alors les informations de l'utilisateur
+     * suppose que l'utilisateur existe dans la base de données. On récupère alors les informations de l'utilisateur.
+     *
+     *
+     * Représentation de la classe Utilisateur:
+     *  - login: string - Le login de l'utilisateur.
+     *  - firstName: string - Le prénom de l'utilisateur.
+     *  - lastName: string - Le nom de l'utilisateur.
+     *  - mail: string - L'adresse mail de l'utilisateur.
+     *  - password: string - Le mot de passe de l'utilisateur.
+     *  - role_id: int - L'id du rôle de l'utilisateur.
+     *  - td: int - Le numéro du TD de l'utilisateur (0 si l'utilisateur n'est pas un étudiant).
+     *  - tp: int - Le numéro du TP de l'utilisateur (0 si l'utilisateur n'est pas un étudiant).
+     *
      */
     class Utilisateur {
         private string $login;
@@ -27,6 +39,7 @@
         private mixed $mail;
         private mixed $password;
         private mixed $role_id;
+
         private mixed $td;
         private mixed $tp;
 
@@ -96,6 +109,20 @@
                 $this->recupererDepuisBD();
             }
             return $this->role_id;
+        }
+
+        public function getTd(): int {
+            if ($this->td == null) {
+                $this->recupererDepuisBD();
+            }
+            return $this->td;
+        }
+
+        public function getTp(): int {
+            if ($this->tp == null) {
+                $this->recupererDepuisBD();
+            }
+            return $this->tp;
         }
 
         // SETTERS

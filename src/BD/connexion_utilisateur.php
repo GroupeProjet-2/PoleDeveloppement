@@ -37,54 +37,55 @@
 </html>
 
 <?php
-/**
- *
- * Connexion réussie:
- *   => $_SESSION['utilisateur'] = objet de la classe Utilisateur
- *   si 'se rappeler de moi' est coché:
- *     => $_COOKIE['utilisateur'] = objet de la classe Utilisateur
- *
- */
-$conn_bd = NULL;
-
-require_once('../Classes/Utilisateur.php');
-require_once('connexion_bd.php');
-
-if (isset($_POST['login']) && isset($_POST['password'])) {
-    $login = $_POST['login'];
-    $password = hash('sha256',$_POST['password']);
-
-    // On verifie si l'utilisateur existe dans la base de données
-    $query = $conn_bd->prepare("SELECT * FROM UTILISATEUR WHERE USER_LOGIN = '$login' OR USER_EMAIL = '$login' LIMIT 1");
-    $query->execute();
-    $result = $query->fetchAll();
-
-    // Si l'utilisateur existe, on vérifie le mot de passe
-    if (count($result) == 1) {
-        // L'utilisateur existe
-        if ($result[0]['USER_PASSWORD'] == $password) {
-            // Le mot de passe est correct
-
-            // On crée la session et on l'enregistre dedans
-            session_start();
-
-            $_SESSION['utilisateur'] = new Utilisateur($login);
-
-            if(isset($_POST['remember'])) {
-                setcookie('utilisateur', new Utilisateur($login), time() + 5*3600, null, null, false, true);
+    /**
+     *
+     * Connexion réussie:
+     *   => $_SESSION['utilisateur'] = objet de la classe Utilisateur
+     *   si 'se rappeler de moi' est coché:
+     *     => $_COOKIE['utilisateur'] = objet de la classe Utilisateur
+     *
+     */
+    $conn_bd = NULL;
+    
+    require_once('../Classes/Utilisateur.php');
+    require_once('connexion_bd.php');
+    
+    if (isset($_POST['login']) && isset($_POST['password'])) {
+        $login = $_POST['login'];
+        $password = hash('sha256',$_POST['password']);
+    
+        // On verifie si l'utilisateur existe dans la base de données
+        $query = $conn_bd->prepare("SELECT * FROM UTILISATEUR WHERE USER_LOGIN = '$login' OR USER_EMAIL = '$login' LIMIT 1");
+        $query->execute();
+        $result = $query->fetchAll();
+    
+        // Si l'utilisateur existe, on vérifie le mot de passe
+        if (count($result) == 1) {
+            // L'utilisateur existe
+            if ($result[0]['USER_PASSWORD'] == $password) {
+                // Le mot de passe est correct
+    
+                // On crée la session et on l'enregistre dedans
+                session_start();
+                
+                $utilisateur = new Utilisateur($login);
+    
+                $_SESSION['utilisateur'] = $utilisateur;
+    
+                if(isset($_POST['remember'])) {
+                    setcookie('utilisateur', $utilisateur, time() + 5*3600, null, null, false, true);
+                }
+    
+                header('Location: ../index.php?id=' . $utilisateur->getRoleId());
+            } else {
+                // Le mot de passe est incorrect
+                echo "Mot de passe incorrecte incorrect, réessayez.";
             }
-
-            header('Location: ../../index.php');
-
         } else {
-            // Le mot de passe est incorrect
-            echo "Mot de passe incorrecte incorrect, réessayez.";
+            // L'utilisateur n'existe pas
+            echo 'Utilisateur inexistant, réessayez.';
         }
-    } else {
-        // L'utilisateur n'existe pas
-        echo 'Utilisateur inexistant, réessayez.';
     }
-}
 ?>
 
 <script>
