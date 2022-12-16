@@ -26,5 +26,5 @@
         $role = "Administrateur";
         header("Location: Admin/index.php");
     } else {
-        header("Location: ../index.php");
+        //header("Location: ../index.php");
     }

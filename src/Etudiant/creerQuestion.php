@@ -81,8 +81,7 @@
     <meta name="viewport" content="width=device-width, height=device-height ,initial-scale=1.0">
 
     <link rel="stylesheet" href="/public/CSS/main.css">
-    <link rel="stylesheet/less" type="text/css" href="../../public/CSS/creerQuestion.scss"/>
-    <script src="http://cdn.jsdelivr.net/npm/less@4.1.1"></script>
+    <link rel="stylesheet" href="../../public/CSS/creerQuestion.css"/>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

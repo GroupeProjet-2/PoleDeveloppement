@@ -65,8 +65,7 @@
     <meta name="viewport" content="width=device-width, height=device-height ,initial-scale=1.0">
 
     <link rel="stylesheet" href="../../../public/CSS/main.css">
-    <link rel="stylesheet/less" type="text/css" href="../../../public/CSS/consulterDepot.scss"/>
-    <script src="http://cdn.jsdelivr.net/npm/less@4.1.1"></script>
+    <link rel="stylesheet" href="../../../public/CSS/consulterDepot.css"/>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -83,83 +82,17 @@
     <main>
         <section class="modifierDepot">
             <form >
-                <table>
-                    <tr style="display: none">
-                        <td>id</td>
-                        <td><input type="text" name="id" value="<?php echo $id; ?>"></td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Titre
-                        </td>
-                        <td>
-                            <input type="text" name="titre" value="<?php echo $titre; ?>">
-                        </td>
-                    </tr>
-                    <tr>
-                            <input type="text" name="description" value="<?php echo $description; ?>">
-                    </tr>
-                    <tr>
-                        <td>
-                            Status
-                        </td>
-                        <td>
-                            <label>
-                                <input type="checkbox" name="status" value="1" <?php if($status == 1) echo "checked"; ?>> Ouvert
-                            </label>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Date d'ouverture
-                        </td>
-                        <td>
-                            <input type="date" name="dateOuverture" value="<?php echo $date_ouverture; ?>">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Date de fermeture
-                        </td>
-                        <td>
-                            <input type="date" name="dateFermeture" value="<?php echo $date_fermeture; ?>">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <input type="submit" name="Modifier" value="Modifier">
-                        </td>
-                    </tr>
-                </table>
+                <input style="display: none" type="text" name="id" value="<?php echo $id; ?>">
+                <input type="text" name="titre" value="<?php echo $titre; ?>">
+                <input type="text" name="description" value="<?php echo $description; ?>">
+                <input type="checkbox" name="status" value="1" <?php if($status == 1) echo "checked"; ?>> Ouvert
+                <input type="date" name="dateOuverture" value="<?php echo $date_ouverture; ?>">
+                <input type="date" name="dateFermeture" value="<?php echo $date_fermeture; ?>">
+                <input type="submit" name="Modifier" value="Modifier">
+
             </form>
         </section>
         <section class="liste-tag">
-
-            <h1>Listes des tags</h1>
-            <table>
-                <tr>
-                    <th>TAG</th>
-                    <th>Supprimer</th>
-                </tr>
-                <?php
-                    $sql = "select lier_tag_depot.tag_id from lier_tag_depot where lier_tag_depot.depot_id = :id";
-                    $stmt = $conn_bd->prepare($sql);
-                    $stmt->bindParam(':id', $id);
-                    $stmt->execute();
-                    $tags = $stmt->fetchAll();
-                    foreach ($tags as $tag){
-                        $nom = $stmt->fetch();
-                        echo "<tr>";
-                        echo "<td>".$tag['tag_id']."</td>";
-                        echo "<td><a href='supprimerTag.php?tag=".$tag['tag_id']."&id=".$id."'>Supprimer</a></td>";
-                        echo "</tr>";
-                    }
-
-
-                    ?>
-            </table>
-
-            <h1>Ajouter des tag</h1>
             <form action="ajouterTag.php" method="get">
                 <select name="tag">
                     <?php
@@ -169,7 +102,7 @@
                         $stmt->execute();
                         $tags = $stmt->fetchAll();
                         if (count($tags) == 0){
-                            echo "<option value=''>Aucun tag disponible</option>";
+                            echo "<option value='none'>Aucun tag disponible</option>";
                         }else{
                             foreach ($tags as $tag){
                                 echo "<option value='".$tag['LABEL']."'>".$tag['LABEL']."</option>";
@@ -180,6 +113,29 @@
                 <input type="text" name="id" value="<?php echo $id; ?>" style="display: none">
                 <input type="submit" name="Ajouter" value="Ajouter">
             </form>
+
+            <table>
+                <tr>
+                    <th>TAG</th>
+                    <th>Supprimer</th>
+                </tr>
+                <?php
+                $sql = "select lier_tag_depot.tag_id from lier_tag_depot where lier_tag_depot.depot_id = :id";
+                $stmt = $conn_bd->prepare($sql);
+                $stmt->bindParam(':id', $id);
+                $stmt->execute();
+                $tags = $stmt->fetchAll();
+                foreach ($tags as $tag){
+                    $nom = $stmt->fetch();
+                    echo "<tr>";
+                    echo "<td>".$tag['tag_id']."</td>";
+                    echo "<td><a href='supprimerTag.php?tag=".$tag['tag_id']."&id=".$id."'>Supprimer</a></td>";
+                    echo "</tr>";
+                }
+
+
+                ?>
+            </table>
         </section>
     </main>
     <?php

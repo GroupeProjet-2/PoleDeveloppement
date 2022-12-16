@@ -13,8 +13,7 @@
     <meta name="viewport" content="width=device-width, height=device-height ,initial-scale=1.0">
 
     <link rel="stylesheet" href="/public/CSS/main.css">
-    <link rel="stylesheet/less" type="text/css" href="../../public/CSS/index.css"/>
-    <script src="http://cdn.jsdelivr.net/npm/less@4.1.1"></script>
+    <link rel="stylesheet" href="../../public/CSS/index.css"/>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -37,6 +36,8 @@ include '../sousHeader.php';
         <div class="container__title">
             <h1>Vous etes un étudiant</h1>
         </div>
+
+        <button class="container__button" onclick="window.location.href = 'creerQuestion.php';">Creer une question</button>
 
     </section>
 </main>
