@@ -160,7 +160,6 @@ html body {
   --text-color: #111;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
   background-color: var(--background-color);
   color: var(--text-color);
@@ -305,6 +304,42 @@ html body main .infos-qcm input:focus, html body main .infos-qcm textarea:focus 
   background-color: var(--text-color);
   color: var(--background-color);
 }
+
+.path{
+  width: 100%;
+}
+
+
+.path > ul {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: min-content;
+  background: #0D8FBF;
+}
+.path > ul > li {
+  padding: 0 1rem;
+}
+.path > ul > li:not(:first-child) {
+  border-left: 1px solid #bbb;
+}
+.path > ul:after {
+  content: "";
+  width: min-content;
+  background: var(--background-color);
+  transition: background-color 0.5s ease;
+
+
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  border-left: 10px solid #0D8FBF;
+  margin-left: 10px;
+}
+
+.path > ul > li a.link::after {
+  background: #bbb;
+}
+
 
 /* END MAIN.SCSS */
 

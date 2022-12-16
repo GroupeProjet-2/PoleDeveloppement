@@ -1,6 +1,6 @@
 <?php
 
-class Type extends Enum
+enum Type
 {
     const CHOIX_MULTIPLE = 1;
     const CHOIX_UNIQUE = 2;

@@ -1,7 +1,7 @@
 <?php
 
     /*******************************************************************************
-     * Ce fichier permet de créer une question.
+     * Ce fichier permet de consulter un dépot.
      *
      *******************************************************************************/
 
@@ -36,69 +36,99 @@
 
 ?>
 
-<html>
+<html lang="fr">
 <head>
-    <title>
-        Gestions des dépots
-    </title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+
+
+    <meta charset="utf-8">
+    <meta name="authors" content="Mathis, Hériveau, Tom Montbord, Tom Planche">
+    <meta name="description" content="Proof Of Concept - SAE_3 Pole Développement">
+    <meta name="viewport" content="width=device-width, height=device-height ,initial-scale=1.0">
+
+    <link rel="stylesheet" href="../../../public/CSS/main.css">
+    <link rel="stylesheet/less" type="text/css" href="../../../public/CSS/creerQuestion.scss"/>
+    <script src="http://cdn.jsdelivr.net/npm/less@4.1.1"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300&display=swap" rel="stylesheet">
+
+    <title>Consultation de ses dépôt</title>
 </head>
 <body>
-    <h1>VOS DEPOT</h1>
-    <table>
-        <tr>
-            <th>ID</th>
-            <th>TITRE</th>
-            <th>DESCRIPTION</th>
-            <th>STATUT</th>
-            <th>DATE_OUVERTURE</th>
-            <th>DATE_FERMETURE</th>
-            <th>MODIFIER</th>
-            <th>SUPPRIMER</th>
-        </tr>
-        <?php
-            $sql = "SELECT * FROM DEPOT where CREATEUR = :login";
-            $stmt = $conn_bd->prepare($sql);
-            $stmt->bindParam(':login', $login);
-            $stmt->execute();
-            $result = $stmt->fetchAll();
-            foreach ($result as $row) {
-                echo "<tr>";
-                echo "<td>" . $row['ID'] . "</td>";
-                echo "<td>" . $row['TITRE'] . "</td>";
-                echo "<td>" . $row['DESCRIPTION'] . "</td>";
-                if ($row['status'] == null) {
-                    echo "<td>Non ouvert</td>";
-                } else {
-                    echo "<td>Ouvert</td>";
-                }
-                echo "<td>" . $row['DATE_OUVERTURE'] . "</td>";
-                echo "<td>" . $row['DATE_FERMETURE'] . "</td>";
-                echo "<td><a href='modifier.php?id=" . $row['ID'] . "'>Modifier</a></td>";
-                echo "<td><a href='supprimer.php?id=" . $row['ID'] . "'>Supprimer</a></td>";
-                echo "</tr>";
-            }
+    <?php
+    include '../../header.php';
+    include '../../sousHeader.php';
+    ?>
+    <main>
+        <section class="listeDepot">
+            <h1>VOS DEPOT</h1>
+            <table>
+                <tr>
+                    <th>ID</th>
+                    <th>TITRE</th>
+                    <th>DESCRIPTION</th>
+                    <th>STATUT</th>
+                    <th>DATE_OUVERTURE</th>
+                    <th>DATE_FERMETURE</th>
+                    <th>MODIFIER</th>
+                    <th>SUPPRIMER</th>
+                </tr>
+                <?php
+                    $sql = "SELECT * FROM DEPOT where CREATEUR = :login";
+                    $stmt = $conn_bd->prepare($sql);
+                    $stmt->bindParam(':login', $login);
+                    $stmt->execute();
+                    $result = $stmt->fetchAll();
+                    foreach ($result as $row) {
+                        echo "<tr>";
+                        echo "<td>" . $row['ID'] . "</td>";
+                        echo "<td>" . $row['TITRE'] . "</td>";
+                        echo "<td>" . $row['DESCRIPTION'] . "</td>";
+                        if ($row['status'] == null) {
+                            echo "<td>Non ouvert</td>";
+                        } else {
+                            echo "<td>Ouvert</td>";
+                        }
+                        echo "<td>" . $row['DATE_OUVERTURE'] . "</td>";
+                        echo "<td>" . $row['DATE_FERMETURE'] . "</td>";
+                        echo "<td><a href='modifier.php?id=" . $row['ID'] . "'>Modifier</a></td>";
+                        echo "<td><a href='supprimer.php?id=" . $row['ID'] . "'>Supprimer</a></td>";
+                        echo "</tr>";
+                    }
 
 
-        ?>
+                ?>
 
-    </table>
+            </table>
+        </section>
 
-    <h1>Créer un dépôt</h1>
-    <form>
-        <label for="titre">Titre</label>
-        <input type="text" name="titre" id="titre" required>
-        <br>
-        <label for="description">Description</label>
-        <input type="text" name="description" id="description" required>
-        <br>
-        <label for="dateOuverture">Date d'ouverture</label>
-        <input type="date" name="dateOuverture" id="dateOuverture" required>
-        <br>
-        <label for="dateFermeture">Date de fermeture</label>
-        <input type="date" name="dateFermeture" id="dateFermeture" required>
-        <br>
-        <input type="submit" name="Créer" value="Créer">
-    </form>
+        <section class="creationDepot">
+            <h1>Créer un dépôt</h1>
+            <form>
+                <label for="titre">Titre</label>
+                <input type="text" name="titre" id="titre" required>
+                <br>
+                <label for="description">Description</label>
+                <input type="text" name="description" id="description" required>
+                <br>
+                <label for="dateOuverture">Date d'ouverture</label>
+                <input type="date" name="dateOuverture" id="dateOuverture" required>
+                <br>
+                <label for="dateFermeture">Date de fermeture</label>
+                <input type="date" name="dateFermeture" id="dateFermeture" required>
+                <br>
+                <input type="submit" name="Créer" value="Créer">
+            </form>
+        </section>
+    </main>
+
+    <?php
+    include '../../footer.php';
+    ?>
 </body>
 
 </html>

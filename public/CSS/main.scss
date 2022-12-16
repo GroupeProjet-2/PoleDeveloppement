@@ -131,6 +131,41 @@ html {
 
     }
 
+    .path{
+      width: 100%;
+
+      ul{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        width: min-content;
+        background: #0D8FBF;
+
+        li{
+          padding: 0 1rem;
+            &:not(:first-child){
+                border-left: 1px solid #bbb;
+            }
+          a{
+            background: #bbb;
+          }
+        }
+
+        &:after {
+          content: "";
+          width: min-content;
+          background: var(--background-color);
+          transition: background-color 0.5s ease;
+
+
+          border-top: 10px solid transparent;
+          border-bottom: 10px solid transparent;
+          border-left: 10px solid #0D8FBF;
+          margin-left: 10px;
+        }
+      }
+    }
+
     main {
       height: 100%;
       width: 100%;

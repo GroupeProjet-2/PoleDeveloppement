@@ -80,8 +80,8 @@
     <meta name="description" content="Proof Of Concept - SAE_3 Pole Développement">
     <meta name="viewport" content="width=device-width, height=device-height ,initial-scale=1.0">
 
-    <link rel="stylesheet" href="../../public/CSS/main.css">
-    <link rel="stylesheet/less" type="text/css" href="../../public/CSS/creerQuestion.scss"/>
+    <link rel="stylesheet" href="/public/CSS/main.css">
+    <link rel="stylesheet/less" type="text/css" href="../../public/CSS/consulterDepot.scss"/>
     <script src="http://cdn.jsdelivr.net/npm/less@4.1.1"></script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -93,7 +93,9 @@
 <body>
     <?php
        include '../header.php';
+       include '../sousHeader.php';
     ?>
+
     <main>
         <section class="container">
             <form>
@@ -185,6 +187,7 @@
     ?>
 </body>
 
+<script src="/public/JS/main.js"></script>
 
 <script>
     // Script qui change le type d'input en fonction du type de question selectionné
