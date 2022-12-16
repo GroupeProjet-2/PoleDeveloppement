@@ -10,6 +10,7 @@ $gray: #bbb;
 $white: #eee;
 
 $light-blue: #0D8FBF;
+$light-blue-dimmed: #0D8FBF75;
 $blue: #064A60;
 $dark-blue: #042C3A;
 
@@ -21,6 +22,9 @@ $gold-dimmed: #D0D06650;
 /* SIZES  ============================================================ SIZES */
 $header-height: 8vh;
 $header-width: 100%;
+
+$outer_corner_radius: 2rem;
+$inner_corner_radius: $outer_corner_radius * .75;
 /* END SIZES  ===================================================  END SIZES */
 
 /* END _VARIABLES.SCSS */

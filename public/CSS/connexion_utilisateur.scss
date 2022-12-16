@@ -1,0 +1,156 @@
+/**
+ * @file public/CSS/connexion_utilisateur.scss
+ * @description
+ * @author Tom Planche (tomplanche@icloud.com)
+ *********************************************/
+
+@import "variables";
+@import "base";
+@import "reset";
+
+
+html {
+  height: 100vh;
+  width: 100vw;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  background: $black;
+  color: $white;
+
+  body {
+    height: 100vh;
+    width: 100vw;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20vh;
+
+    form {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1rem;
+
+
+      min-width: 40vw;
+
+
+      padding: 2.5rem 3rem;
+      margin-bottom: 1rem;
+
+
+      background: var(--background-color);
+
+
+      border-radius: $outer_corner_radius / 2;
+      border: $light-blue solid 1px !important;
+
+      .input-group {
+        display: flex;
+        flex-direction: column;
+
+        &.f-row {
+          flex-direction: row;
+          justify-content: center;
+
+          &.r-allign {
+            align-self: flex-end;
+          }
+
+          input {
+            width: auto;
+
+            &[type="checkbox"] {
+              margin-top: auto;
+              margin-bottom: auto;
+            }
+          }
+        }
+
+        justify-content: center;
+        align-items: flex-start;
+
+        gap: 1rem;
+
+        label {
+          &#visibilityImgContainer {
+            height: 100%;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            #visibilityImg {
+              path {
+                fill: var(--text-color);
+              }
+            }
+
+          }
+        }
+
+        .label-group {
+          width: 100%;
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+          align-items: flex-end;
+
+          a {
+            font-size: small;
+          }
+        }
+      }
+
+
+      input, button {
+        width: 100%;
+
+        padding: 5px 12px;
+
+        font-size: 14px;
+        line-height: 20px;
+
+        color: $white;
+
+        text-align: left;
+
+        background-color: $black;
+        background-repeat: no-repeat;
+        background-position: right 8px center;
+        border: 1px solid $light-blue;
+        border-radius: 6px;
+        box-shadow: transparent;
+
+        transition: 80ms cubic-bezier(0.33, 1, 0.68, 1);
+        transition-property: color,background-color,box-shadow,border-color;
+
+        &[type=submit] {
+          text-align: center;
+        }
+
+        &:hover {
+          outline: none;
+          border-color: $light-blue-dimmed;
+          border-width: 1px;
+        }
+
+        &:focus {
+          outline: none;
+          border-color: $light-blue;
+          border-width: 2px;
+        }
+      }
+
+    }
+
+  }
+}
+
+/* END FILE login_signup.scss */

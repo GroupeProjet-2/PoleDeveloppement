@@ -7,25 +7,24 @@
 
 
     // On vérifie que l'utilisateur est connecté et qu'il est un enseignant
-    if(isset($_SESSION['utilisateur'])){
-    }else if(isset($_COOKIE['utilisateur'])){
+    if(isset($_SESSION['utilisateur'])) {
+    } else if(isset($_COOKIE['utilisateur'])) {
         $_SESSION['utilisateur'] = $_COOKIE['utilisateur'];
-    }else{
+    } else {
         header('Location: ../index.php');
     }
 
 
 
-    if($role ==1){
+    if($role == 1) {
         $role = "Etudiant";
         header('Location: Etudiant/index.php');
-    }
-    elseif ($role == 2) {
+    } else if ($role == 2) {
         $role = "Enseignant";
         header("Location: Enseignant/index.php");
-    }elseif ($role == 3) {
+    } else if ($role == 3) {
         $role = "Administrateur";
         header("Location: Admin/index.php");
-    }else{
+    } else {
         header("Location: ../index.php");
     }

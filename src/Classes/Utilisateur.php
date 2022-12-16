@@ -1,8 +1,11 @@
 <?php
 
-    include("../BD/connexion_bd.php");
+    $root = $_SERVER['DOCUMENT_ROOT'];
 
-    require("../utils.php");
+    include("$root/src/BD/connexion_bd.php");
+
+    require("$root/src/utils.php");
+
 
     /**
      * Utilisateur est une classe représentant un utilisateur.

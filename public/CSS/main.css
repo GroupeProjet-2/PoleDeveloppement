@@ -17,7 +17,10 @@
   position: relative;
   cursor: pointer;
 }
-.link:after {
+.link.active {
+  text-decoration: underline;
+}
+.link:not(.active):after {
   content: "";
   position: absolute;
   width: 100%;
@@ -30,22 +33,22 @@
   transition: transform 0.25s ease-out;
   z-index: 444;
 }
-.link:hover:after {
+.link:not(.active):hover:after {
   transform: scaleX(1);
   transform-origin: bottom left;
 }
 
-.btn {
+.btn, input[type=submit] {
   font-size: 1.5rem;
   padding: 0.5rem 1rem;
   background: #064A60 !important;
   border-radius: 999px !important;
 }
-.btn:hover {
+.btn:hover, input[type=submit]:hover {
   background: #042C3A !important;
   outline: #0D8FBF 2px solid !important;
 }
-.btn:focus {
+.btn:focus, input[type=submit]:focus {
   background: #0D8FBF !important;
   color: #111 !important;
 }
@@ -171,7 +174,6 @@ html body {
   --text-color: #111;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
   background-color: var(--background-color);
   color: var(--text-color);
@@ -261,9 +263,6 @@ html body .path ul li {
 }
 html body .path ul li:not(:first-child) {
   border-left: 1px solid #bbb;
-}
-html body .path ul li a {
-  background: #bbb;
 }
 html body .path ul:after {
   content: "";
