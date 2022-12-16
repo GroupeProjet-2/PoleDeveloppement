@@ -20,4 +20,4 @@ $stmt = $conn_bd->prepare($sql);
 $stmt->bindParam(':label', $label);
 $stmt->execute();
 
-header('Location: consulter.php');
+header('Location: index.php');

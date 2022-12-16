@@ -7,5 +7,5 @@
     $stmt->bindParam(':id', $_GET['id']);
     $stmt->execute();
     // Redirection vers la page de gestion des dépôts
-    header('Location: consulter.php');
+    header('Location: index.php');
 ?>

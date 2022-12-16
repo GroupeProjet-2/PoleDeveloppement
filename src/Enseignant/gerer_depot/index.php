@@ -28,7 +28,7 @@
         $stmt->bindParam(':createur', $login);
         $stmt->execute();
 
-        header('Location: consulter.php');
+        header('Location: index.php');
 
 
 
@@ -49,7 +49,7 @@
     <meta name="viewport" content="width=device-width, height=device-height ,initial-scale=1.0">
 
     <link rel="stylesheet" href="../../../public/CSS/main.css">
-    <link rel="stylesheet/less" type="text/css" href="../../../public/CSS/creerQuestion.scss"/>
+    <link rel="stylesheet/less" type="text/css" href="../../../public/CSS/consulterDepot.scss"/>
     <script src="http://cdn.jsdelivr.net/npm/less@4.1.1"></script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -64,8 +64,25 @@
     include '../../sousHeader.php';
     ?>
     <main>
+        <section class="creationDepot">
+            <form>
+                <label for="titre">Titre</label>
+                <input type="text" name="titre" id="titre" required>
+                <br>
+                <label for="description">Description</label>
+                <input type="text" name="description" id="description" required>
+                <br>
+                <label for="dateOuverture">Date d'ouverture</label>
+                <input type="date" name="dateOuverture" id="dateOuverture" required>
+                <br>
+                <label for="dateFermeture">Date de fermeture</label>
+                <input type="date" name="dateFermeture" id="dateFermeture" required>
+                <br>
+                <input type="submit" name="Créer" value="Créer">
+            </form>
+        </section>
+
         <section class="listeDepot">
-            <h1>VOS DEPOT</h1>
             <table>
                 <tr>
                     <th>ID</th>
@@ -106,24 +123,6 @@
             </table>
         </section>
 
-        <section class="creationDepot">
-            <h1>Créer un dépôt</h1>
-            <form>
-                <label for="titre">Titre</label>
-                <input type="text" name="titre" id="titre" required>
-                <br>
-                <label for="description">Description</label>
-                <input type="text" name="description" id="description" required>
-                <br>
-                <label for="dateOuverture">Date d'ouverture</label>
-                <input type="date" name="dateOuverture" id="dateOuverture" required>
-                <br>
-                <label for="dateFermeture">Date de fermeture</label>
-                <input type="date" name="dateFermeture" id="dateFermeture" required>
-                <br>
-                <input type="submit" name="Créer" value="Créer">
-            </form>
-        </section>
     </main>
 
     <?php

@@ -22,7 +22,7 @@ if (isset($_GET['Créer'])){
     $stmt->bindParam(':createur', $login);
     $stmt->execute();
 
-    header('Location: consulter.php');
+    header('Location: index.php');
 }
 ?>
 
